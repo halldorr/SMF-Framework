@@ -1,13 +1,18 @@
 <?php
 namespace App\Controllers;
 
+use \Core\View;
+use App\Models\Post;
+
 class Posts extends \Core\Controller
 {
 
     //show the index page
     public function indexAction()
     {
-        echo 'Hello from the index action in the Posts controller!';
+        $posts = Post::getAll();
+
+		View::renderTemplate('Posts/index.html', ['posts' => $posts]);
     }
 
     //show the addnew page
