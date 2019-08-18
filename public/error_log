@@ -1,0 +1,11 @@
+[18-Aug-2019 00:57:35 UTC] PHP Fatal error:  Uncaught Error: Cannot access protected property Router::$params in /home/woobr/public_html/rest/public/index.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/woobr/public_html/rest/public/index.php on line 17
+[18-Aug-2019 01:39:10 UTC] PHP Warning:  require(../App/Controlelrs/Posts.php): failed to open stream: No such file or directory in /home/woobr/public_html/rest/public/index.php on line 5
+[18-Aug-2019 01:39:10 UTC] PHP Fatal error:  require(): Failed opening required '../App/Controlelrs/Posts.php' (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/woobr/public_html/rest/public/index.php on line 5
+[18-Aug-2019 01:47:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Router' not found in /home/woobr/public_html/rest/public/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/woobr/public_html/rest/public/index.php on line 7
+[18-Aug-2019 01:50:52 UTC] PHP Parse error:  syntax error, unexpected '/', expecting '{' in /home/woobr/public_html/rest/App/Controllers/Home.php on line 2

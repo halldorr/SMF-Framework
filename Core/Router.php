@@ -1,4 +1,5 @@
 <?php
+namespace Core;
 
 class Router
 {
@@ -34,17 +35,6 @@ class Router
 	//match the routes in the routing table, setting params property if route found
 	public function match($url)
 	{
-		/*foreach ($this->routes as $route => $params)
-		{
-			if ($url == $route)
-			{
-				$this->params = $params;
-				return true;
-			}
-		}
-
-		$reg_exp = "/^(?P<controller>[a-z-]+)\/(?P<action>[a-z-]+)$/";*/
-
         foreach ($this->routes as $route => $params) 
 		{
             if (preg_match($route, $url, $matches)) 
@@ -77,26 +67,30 @@ class Router
 	//dispatch the route
 	public function dispatch($url)
     {
+		$url = $this->removeQueryStringVariables($url);
+
         if ($this->match($url)) 
 		{
             $controller = $this->params['controller'];
             $controller = $this->convertToStudlyCaps($controller);
+			//$controller = "App\Controllers\\$controller";
+			$controller = $this->getNamespace() . $controller;
 
             if (class_exists($controller)) 
 			{
-                $controller_object = new $controller();
+                $controller_object = new $controller($this->params);
 
                 $action = $this->params['action'];
                 $action = $this->convertToCamelCase($action);
 
-                if (is_callable([$controller_object, $action])) 
+                if (preg_match('/action$/i', $action) == 0)
 				{
                     $controller_object->$action();
 
                 } 
 				else 
 				{
-                    echo "Method $action (in controller $controller) not found";
+                    echo "Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method";
                 }
             } 
 			else 
@@ -110,29 +104,46 @@ class Router
         }
     }
 
-	/**
-     * Convert the string with hyphens to StudlyCaps,
-     * e.g. post-authors => PostAuthors
-     *
-     * @param string $string The string to convert
-     *
-     * @return string
-     */
+	//convert string to StudlyCaps
     protected function convertToStudlyCaps($string)
     {
         return str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
     }
 
-    /**
-     * Convert the string with hyphens to camelCase,
-     * e.g. add-new => addNew
-     *
-     * @param string $string The string to convert
-     *
-     * @return string
-     */
+    //convert string to camelCase
     protected function convertToCamelCase($string)
     {
         return lcfirst($this->convertToStudlyCaps($string));
     }
+
+	 protected function removeQueryStringVariables($url)
+    {
+        if ($url != '') 
+		{
+            $parts = explode('&', $url, 2);
+
+            if (strpos($parts[0], '=') === false) 
+			{
+                $url = $parts[0];
+            } 
+			else 
+			{
+                $url = '';
+            }
+        }
+
+        return $url;
+    }
+
+	protected function getNamespace()
+	{
+		$namespace = 'App\Controllers\\';
+
+		if (array_key_exists('namespace', $this->params))
+		{
+			$namespace .= $this->params['namespace'] . '\\';
+		}
+
+		return $namespace;
+	}
 }
