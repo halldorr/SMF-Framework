@@ -5,4 +5,21 @@
 require '../Core/Router.php';
 $router = new Router();
 
-echo get_class($router);
+//Add routes
+$router->add('', ['controller' => 'Home', 'action' => 'index']);
+$router->add('posts', ['controller' => 'Posts', 'action' => 'index']);
+//$router->add('posts/new', ['controller' => 'Posts', 'action' => 'new']);
+$router->add('{controller}/{action}');
+$router->add('admin/{action}/{controller}');
+
+/*$url = $_SERVER['QUERY_STRING'];
+
+if ($router->match($url))
+{
+	var_dump($router->getParams());
+}
+else
+{
+	echo 'No route found from: ' . $url;
+}*/
+echo '<pre>'; echo htmlspecialchars(print_r($router->getRoutes(), true)); echo '</pre>';
