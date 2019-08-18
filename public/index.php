@@ -2,6 +2,7 @@
 
 //echo 'url: ' . $_SERVER['QUERY_STRING'];
 
+require '../App/Controllers/Posts.php';
 require '../Core/Router.php';
 $router = new Router();
 
@@ -14,7 +15,7 @@ $router->add('admin/{action}/{controller}');
 $router->add('{controller}/{id:\d+}/{action}');
 
 
-echo '<pre>'; echo htmlspecialchars(print_r($router->getRoutes(), true)); echo '</pre>';
+/*echo '<pre>'; echo htmlspecialchars(print_r($router->getRoutes(), true)); echo '</pre>';
 
 $url = $_SERVER['QUERY_STRING'];
 
@@ -25,4 +26,6 @@ if ($router->match($url))
 else
 {
 	echo 'No route found from: ' . $url;
-}
+}*/
+
+$router->dispatch($_SERVER['QUERY_STRING']);
