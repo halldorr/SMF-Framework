@@ -6,7 +6,9 @@ namespace App;
 class Config
 {
     const DB_HOST = 'localhost';
-	const DB_NAME = 'mvc';
-	const DB_USER = 'root';
-    const DB_PASSWORD = 'secret';
+	const DB_NAME = 'DBNAME';
+	const DB_USER = 'DBUSER';
+    const DB_PASSWORD = 'DBPASS';
+
+	const SHOW_ERRORS = true;
 }
