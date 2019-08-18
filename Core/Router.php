@@ -97,7 +97,7 @@ class Router
 			else 
 			{
                 //echo "Controller class $controller not found";
-				throw new \Exception("Controller class $controller not found");
+				throw new \Exception("Controller class $controller not found", 404);
             }
         } 
 		else 

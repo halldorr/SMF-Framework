@@ -10,5 +10,5 @@ class Config
 	const DB_USER = 'DBUSER';
     const DB_PASSWORD = 'DBPASS';
 
-	const SHOW_ERRORS = true;
+	const SHOW_ERRORS = false;
 }
