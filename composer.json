@@ -1,6 +1,6 @@
 {
     "require": {
-        "twig/twig": "~2.14"
+        "twig/twig": "~3.11"
     },
     "autoload": {
         "psr-4": {
